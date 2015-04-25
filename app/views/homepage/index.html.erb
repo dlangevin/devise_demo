@@ -1,0 +1,19 @@
+<h1>Home!</h1>
+
+<% if current_user -%>
+  <dl>
+    <dt>Current user</dt>
+    <dd><%= current_user.email %></dd>
+    <dt>Token:</dt>
+    <dd>
+      <%= current_user.token %>
+      <code>
+        curl -H 'Authorization:<%= current_user.token %>' localhost:3000/api/v1/users/me.json
+      </code>
+    </dd>
+  </dl>
+  <p><%= link_to('log out', destroy_user_session_path, method: :delete) %></p>
+<% else -%>
+  <%= link_to('log in', new_user_session_path) %>
+  <%= link_to('sign up', new_user_registration_path) %>
+<% end -%>
